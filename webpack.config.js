@@ -42,7 +42,14 @@ module.exports = {
       test:   /\.css$/,
       loader: "style-loader!css-loader!postcss-loader"
     },
-    { test: /\.(woff|woff2|eot|ttf|svg)$/,  loader: "url" },
+    { 
+      test: /\.(woff|woff2|eot|ttf|svg)$/,  
+      loader: "url" 
+    },
+    {
+      test: /\.(png|gif|jpe?g|svg)$/i,
+      loader: 'file?name=[path][name].[ext]'
+    },
     ]
   },
   postcss: function () {

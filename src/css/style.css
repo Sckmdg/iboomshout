@@ -1,11 +1,37 @@
 .canvas{
-	border: 1px solid blue;
+	border: 2px solid;
+	border-right: none;
+	border-bottom-left-radius: 13px;
 }
 
 .imageLoader{
-	border: 1px solid red;
+	border: 2px solid;
+	border-bottom-right-radius: 13px;
 }
 
 .canvas, .imageLoader{
 	min-height: 400px;
+	border-top: none;
+}
+
+.myFrame{
+	margin-top: 25px;
+	border-top-right-radius: 13px;
+	border-top-left-radius: 13px;
+	border: 2px solid;
+	background: linear-gradient(to right, #337ab7, #507299);
+}
+
+.myFrame, .canvas, .imageLoader {
+	border-color: #d3d9de;
+}
+
+.myName{
+	margin-top: 10px;
+	color: #fff;
+}
+
+#c{
+	background-size: cover;
+	background-image: url(../img/window-glass.jpg);
 }

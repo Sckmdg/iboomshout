@@ -1,0 +1,11 @@
+.canvas{
+	border: 1px solid blue;
+}
+
+.imageLoader{
+	border: 1px solid red;
+}
+
+.canvas, .imageLoader{
+	min-height: 400px;
+}

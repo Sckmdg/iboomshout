@@ -10,7 +10,7 @@
 }
 
 .canvas, .imageLoader{
-	min-height: 400px;
+	min-height: 500px;
 	border-top: none;
 }
 
@@ -29,9 +29,4 @@
 .myName{
 	margin-top: 10px;
 	color: #fff;
-}
-
-#c{
-	background-size: cover;
-	background-image: url(../img/window-glass.jpg);
 }

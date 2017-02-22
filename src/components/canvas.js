@@ -88,9 +88,20 @@ export default class Canvas extends Component {
 				top: top-50,
 				left: left
 			}));
-		});
+		}, {crossOrigin: 'Anonymous'});
 		this.refs.url.value = '';
 		this.setState({emptyUrl: true});
+	}
+
+	Save(){
+		var canvas = this.state.canvas;
+
+		if (!fabric.Canvas.supports('toDataURL')) {
+			alert('This browser doesn\'t provide means to serialize canvas to an image');
+		}
+		else {
+			window.open(canvas.toDataURL('png'));
+		}
 	}
 
 	/**
@@ -157,8 +168,13 @@ export default class Canvas extends Component {
 			<input type='text' className='form-control' placeholder='input url' ref='url' onChange={this.onFieldChange.bind(this, 'emptyUrl')}/>
 			</div>
 			<button type='submit' className='btn btn-default' disabled={emptyUrl} onClick={this.FromUrl.bind(this)} >Add Image</button>
-			</div>
 
+			<div className='form-group'>
+			<h4>Save canvas</h4>
+			<button type='submit' className='btn btn-default' onClick={this.Save.bind(this)} >Save</button>
+			</div>
+			</div>
+			
 			</div>
 			);
 	}

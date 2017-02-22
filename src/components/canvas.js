@@ -17,7 +17,8 @@ export default class Canvas extends Component {
 		}
 		this.state.text = {
 			fontWeight: 'normal',
-			fontSize: 30,
+			fontFamily: 'Helvetica Neue',
+			fontSize: 30
 		}
 	}
 
@@ -34,7 +35,12 @@ export default class Canvas extends Component {
 		left = this.state.left,
 		top = this.state.top,
 		weight,
-		size;
+		size,
+		e,
+		currentFont;
+
+		e = document.getElementById('fontFamily');
+		currentFont = e.options[e.selectedIndex].text;
 
 		(inputSize==null || inputSize=="") ? size = this.state.text.fontSize : size = this.refs.size.value;
 
@@ -44,7 +50,8 @@ export default class Canvas extends Component {
 			fontSize: size,
 			fontWeight: weight,
 			left: left,
-			top: top
+			top: top,
+			fontFamily: currentFont
 		});
 		canvas.add(text);
 		this.refs.title.value = '';
@@ -107,20 +114,30 @@ export default class Canvas extends Component {
 			<div>
 
 			<div className='col-md-8 canvas text-center'>
-			<canvas id='c' width="720" height="450"></canvas>
+			<canvas id='c' width='720' height='450'></canvas>
 			</div>
 
 			<div className='col-md-4 imageLoader'>
-			<h3 className='text-center' >Add some text</h3>
+			<h4 className='text-center' >Add some text</h4>
 
 			<div className='form-group'>
 			<label>Text</label>
-			<input type='text' className="form-control" placeholder='input your text' ref='title' onChange={this.onFieldChange.bind(this, 'emptyText')}/>
+			<input type='text' className='form-control' placeholder='input your text' ref='title' onChange={this.onFieldChange.bind(this, 'emptyText')}/>
 			</div>
 
 			<div className='form-group'>
 			<label>Font-Size</label>
 			<input type='number' className='form-control' placeholder='input size number of Font-Size' ref='size'/>
+			</div>
+
+			<div className='form-group'>
+			<label>Font-Family</label>
+			<select className='form-control' id='fontFamily'>
+			<option value='1'>Helvetica Neue</option>
+			<option value='2'>Helvetica</option>
+			<option value='3'>Arial</option>
+			<option value='4'>sans-serif</option>
+			</select>
 			</div>
 
 			<div className='checkbox'>
@@ -133,11 +150,11 @@ export default class Canvas extends Component {
 			<br />
 			<br />
 
-			<h3 className='text-center'>Add your own image</h3>
+			<h4 className='text-center'>Add your own image</h4>
 
 			<div className='form-group'>
 			<label>From url</label>
-			<input type='text' className="form-control" placeholder='input url' ref='url' onChange={this.onFieldChange.bind(this, 'emptyUrl')}/>
+			<input type='text' className='form-control' placeholder='input url' ref='url' onChange={this.onFieldChange.bind(this, 'emptyUrl')}/>
 			</div>
 			<button type='submit' className='btn btn-default' disabled={emptyUrl} onClick={this.FromUrl.bind(this)} >Add Image</button>
 			</div>

@@ -23,21 +23,21 @@ export default class Canvas extends Component {
 	}
 
 	/**
-	*Here we are taking ref from input
-	*and creating title with options that we set,
+	*Here we are taking ref value from input
+	*and creating the title with options that we set,
 	*also make fields empty after create title 
 	*/
 	TextAdd(){
 		var canvas = this.state.canvas,
-		inputText = this.refs.title.value,
-		inputSize = this.refs.size.value,
-		fontWeight = this.state.text.fontWeight,
-		left = this.state.left,
-		top = this.state.top,
-		weight,
-		size,
-		e,
-		currentFont;
+			inputText = this.refs.title.value,
+			inputSize = this.refs.size.value,
+			fontWeight = this.state.text.fontWeight,
+			left = this.state.left,
+			top = this.state.top,
+			weight,
+			size,
+			e,
+			currentFont;
 
 		e = document.getElementById('fontFamily');
 		currentFont = e.options[e.selectedIndex].text;
@@ -61,7 +61,7 @@ export default class Canvas extends Component {
 	}
 
 	/**
-	*Making true\false checkbox value, that used in TextAdd
+	*Making true/false checkbox value, that used in TextAdd
 	*/
 	Bold() {
 		this.setState({ checkBold: !this.state.checkBold });
@@ -78,11 +78,14 @@ export default class Canvas extends Component {
 		}
 	}
 
+	/**
+	*Here we adding image from url if CORS let us do it
+	*/
 	FromUrl(){
 		var canvas = this.state.canvas,
-		left = this.state.left,
-		top = this.state.top,
-		url = this.refs.url.value;
+			left = this.state.left,
+			top = this.state.top,
+			url = this.refs.url.value;
 		fabric.Image.fromURL(url, function(obj) {
 			canvas.add(obj.set({
 				top: top-50,
@@ -92,6 +95,10 @@ export default class Canvas extends Component {
 		this.refs.url.value = '';
 		this.setState({emptyUrl: true});
 	}
+
+	/**
+	*Saving our image as png if browser can do it
+	*/
 
 	Save(){
 		var canvas = this.state.canvas;
@@ -170,7 +177,7 @@ export default class Canvas extends Component {
 			<button type='submit' className='btn btn-default' disabled={emptyUrl} onClick={this.FromUrl.bind(this)} >Add Image</button>
 
 			<div className='form-group'>
-			<h4>Save canvas</h4>
+			<h4 className='text-center'>Save canvas</h4>
 			<button type='submit' className='btn btn-default' onClick={this.Save.bind(this)} >Save</button>
 			</div>
 			</div>

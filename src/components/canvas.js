@@ -79,7 +79,8 @@ export default class Canvas extends Component {
         };
 
         document.getElementById('checkbox').onchange = function () {
-            (self.state.checkBold == true) ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
+            (self.state.checkBold == true)
+                ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
             canvas.renderAll();
         } ;
     }
@@ -95,15 +96,13 @@ export default class Canvas extends Component {
      *If field not empty - making available buttons (add text and add image from url)
      */
     onFieldChange (fieldName, e) {
-        if (e.target.value.trim().length) {
-            this.setState({['' +fieldName]: false})
-        } else {
-            this.setState({['' +fieldName]: true})
-        }
+        (e.target.value.trim().length>0) ?
+            this.setState({['' +fieldName]: false}) : this.setState({['' +fieldName]: true});
     }
 
     /**
      *Here we adding image from url if CORS let us do it
+     * left this on future
      */
     // FromUrl(){
     //     const canvas = this.state.canvas,
@@ -127,13 +126,8 @@ export default class Canvas extends Component {
 
     Save(){
         const canvas = this.state.canvas;
-
-        if (!fabric.Canvas.supports('toDataURL')) {
-            alert('This browser doesn\'t provide means to serialize canvas to an image');
-        }
-        else {
-            window.open(canvas.toDataURL('png'));
-        }
+        (fabric.Canvas.supports('toDataURL') == true) ?
+            window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
 
     /**
@@ -194,8 +188,6 @@ export default class Canvas extends Component {
                         </label>
                     </div>
                     <button type='submit' className='btn btn-default' onClick={this.TextAdd.bind(this)} >Add text</button>
-                    <br />
-                    <br />
                     <h4 className='text-center'>Add your own image</h4>
                     <div className='form-group'>
                         <label className="control-label">Select File</label>

@@ -11,7 +11,6 @@ export default class Canvas extends Component {
             left: 305,
             top: 140,
             checkBold: false,
-            emptyText: true,
             emptySize: true,
             emptyUrl: true
         };
@@ -29,7 +28,6 @@ export default class Canvas extends Component {
      */
     TextAdd(){
         let canvas = this.state.canvas,
-            inputText = this.refs.title.value,
             inputSize = this.refs.size.value,
             fontWeight = this.state.text.fontWeight,
             left = this.state.left,
@@ -37,49 +35,53 @@ export default class Canvas extends Component {
         let weight,
             size,
             e,
-            currentFont,
-            timer;
+            currentFont;
 
         e = document.getElementById('fontFamily');
         currentFont = e.options[e.selectedIndex].text;
 
-        (inputSize==null || inputSize=="") ? size = this.state.text.fontSize : size = this.refs.size.value;
+        (inputSize == null || inputSize == "") ? size = this.state.text.fontSize : size = this.refs.size.value;
 
         (this.state.checkBold == true) ? weight = 'bold' : weight = fontWeight;
 
-        const text = new fabric.Text(inputText, {
-            fontSize: size,
-            fontWeight: weight,
+        const text = new fabric.IText('Tap and Type', {
             left: left,
             top: top,
-            fontFamily: currentFont
+            fontFamily: currentFont,
+            fontSize: size,
+            fontWeight: weight
         });
+
         canvas.add(text);
-        this.refs.title.value = '';
+
         this.refs.size.value = '';
-        this.setState({emptyText: true});
         this.setState({emptySize: true});
         let self = this;
+
         text.on('selected', function(){
-                self.refs.title.value = text.text;
                 self.refs.size.value = text.fontSize;
-                timer = setInterval(function() {
-                    text.set({
-                        text: self.refs.title.value,
-                        fontSize: self.refs.size.value,
-                        fontFamily: e.options[e.selectedIndex].text,
-                        fontWeight: text.fontWeight
-                    });
-                    canvas.add(text);
-                }, 1000);
             },
         );
+
         text.on('deselected', function(){
-                clearInterval(timer);
-                self.refs.title.value = '';
                 self.refs.size.value = '';
             }
         );
+
+        document.getElementById('fontSize').onchange = function() {
+            canvas.getActiveObject().setFontSize(this.value);
+            canvas.renderAll();
+        };
+
+        document.getElementById('fontFamily').onchange = function() {
+            canvas.getActiveObject().setFontFamily(this.options[this.selectedIndex].text);
+            canvas.renderAll();
+        };
+
+        document.getElementById('checkbox').onchange = function () {
+            (self.state.checkBold == true) ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
+            canvas.renderAll();
+        } ;
     }
 
     /**
@@ -162,10 +164,10 @@ export default class Canvas extends Component {
             };
             reader.readAsDataURL(file);
         });
+
     }
 
     render() {
-        const emptyText = this.state.emptyText;
         return (
             <div>
                 <div className='col-md-8 canvas text-center'>
@@ -174,12 +176,8 @@ export default class Canvas extends Component {
                 <div className='col-md-4 imageLoader'>
                     <h4 className='text-center' >Add some text</h4>
                     <div className='form-group'>
-                        <label>Text</label>
-                        <input type='text' className='form-control' placeholder='input your text' ref='title' onChange={this.onFieldChange.bind(this, 'emptyText')}/>
-                    </div>
-                    <div className='form-group'>
                         <label>Font-Size</label>
-                        <input type='number' className='form-control' placeholder='input size number of Font-Size' ref='size'/>
+                        <input type='number' className='form-control' id='fontSize' placeholder='input size number of Font-Size' ref='size'/>
                     </div>
                     <div className='form-group'>
                         <label>Font-Family</label>
@@ -195,7 +193,7 @@ export default class Canvas extends Component {
                             <input type='checkbox' id='checkbox' ref='bold' onChange={this.Bold.bind(this)} /> Bold
                         </label>
                     </div>
-                    <button type='submit' className='btn btn-default' disabled={emptyText} onClick={this.TextAdd.bind(this)} >Add text</button>
+                    <button type='submit' className='btn btn-default' onClick={this.TextAdd.bind(this)} >Add text</button>
                     <br />
                     <br />
                     <h4 className='text-center'>Add your own image</h4>

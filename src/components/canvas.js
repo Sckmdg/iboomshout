@@ -141,9 +141,12 @@ export default class Canvas extends Component {
             height: canvas.height
         });
 
+        /**
+         *This code let us downloading our images
+         */
         this.setState({canvas: canvas});
         let self = this;
-        document.getElementById('file').addEventListener("change", function (e) {
+        document.getElementById('file').addEventListener('change', function (e) {
             let file = e.target.files[0];
             let reader = new FileReader();
             reader.onload = function (f) {
@@ -158,7 +161,6 @@ export default class Canvas extends Component {
             };
             reader.readAsDataURL(file);
         });
-
     }
 
     render() {

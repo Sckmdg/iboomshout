@@ -55,7 +55,6 @@ export default class Canvas extends Component {
     }
 
     render() {
-        console.log(this);
         const {left, top} = this.props.canvas;
         return (
             <div className='col-md-8 canvas text-center'>

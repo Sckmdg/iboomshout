@@ -1,8 +1,10 @@
 /*Compose our components*/
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Canvas from '../components/canvas';
 import Editor from '../components/editor';
+import * as pageActions from '../actions/actions';
 class App extends Component {
     render() {
         const {canvas} = this.props;
@@ -11,8 +13,8 @@ class App extends Component {
                 <div className='myFrame'>
                     <h2 className='myName text-center'>Boom Shout</h2>
                 </div>
-                <Canvas canvas={canvas}/>
-                <Editor />
+                <Canvas canvas={canvas} />
+                <Editor editor={canvas} />
             </div>
         )
     }
@@ -24,4 +26,10 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(App)
+function mapDispatchToProps(dispatch) {
+    return {
+        pageActions: bindActionCreators(pageActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps())(App)

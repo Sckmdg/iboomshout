@@ -3,11 +3,11 @@ import {fabric} from 'fabric';
 export default class Editor extends Component {
 
     TextAdd = () => {
-        let canvas = this.state.canvas,
+        let canvas = this.props.canvas,
             inputSize = this.refs.size.value,
-            fontWeight = this.state.text.fontWeight,
-            left = this.state.left,
-            top = this.state.top,
+            fontWeight = this.props.editor.text.fontWeight,
+            left = this.props.left,
+            top = this.props.top,
             weight,
             size,
             element,
@@ -15,9 +15,9 @@ export default class Editor extends Component {
 
         element = this.refs.fontFamily;
         currentFont = element.options[element.selectedIndex].text;
-        size = (inputSize == null || inputSize == '') ? this.state.text.fontSize : this.refs.size.value;
+        size = (inputSize == null || inputSize == '') ? this.props.editor.text.fontSize : this.refs.size.value;
 
-        (this.state.checkBold == true) ? weight = 'bold' : weight = fontWeight;
+        (this.props.checkBold == true) ? weight = 'bold' : weight = fontWeight;
 
         let text = new fabric.IText('Tap and Type', {
             left: left,
@@ -26,7 +26,6 @@ export default class Editor extends Component {
             fontSize: size,
             fontWeight: weight
         });
-
         canvas.add(text);
 
         this.refs.size.value = '';
@@ -46,13 +45,13 @@ export default class Editor extends Component {
     /*Making true/false checkbox value, that used in TextAdd*/
 
     Bold = () => {
-        this.setState({checkBold: !this.state.checkBold});
+        this.setState({checkBold: !this.props.checkBold});
     };
 
     /*Saving our image as png if browser can do it*/
 
     Save = () => {
-        const canvas = this.state.canvas;
+        const canvas = this.props.canvas;
         (fabric.Canvas.supports('toDataURL') == true) ?
             window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     };

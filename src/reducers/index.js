@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import canvas from './canvas';
+import {canvas} from './canvas';
 
 export default combineReducers({
     canvas

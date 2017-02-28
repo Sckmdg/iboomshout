@@ -29,6 +29,7 @@ export function createCanvas(canvas) {
             payload: canvas
         })
     }
+
 }
 
-export default { textAdd, bold, createCanvas }
+export default {textAdd, bold, createCanvas}

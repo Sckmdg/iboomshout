@@ -6,10 +6,9 @@ import Canvas from '../components/canvas';
 import Editor from '../components/editor';
 import actions from '../actions/actions';
 class App extends Component {
-    render() {
-        console.log(this.props);
-        const {canvas} = this.props;
 
+    render() {
+        const {canvas} = this.props;
         return (
             <div className='app col-md-12'>
                 <div className='myFrame'>

@@ -15,16 +15,21 @@ const initialState = {
     }
 };
 
-export default function canvas(state = initialState) {
-    return state
-}
-
-export function createCanvas(state, action) {
+export function canvas(state = initialState, action) {
     switch (action.type) {
         case CREATE_CANVAS:
-            return [...state, action.canvas];
+            return Object.assign(state, action.payload) ;
         default:
             return state
     }
 }
+
+// export function createCanvas(state = initialState, action) {
+//     switch (action.type) {
+//         case CREATE_CANVAS:
+//             return [...state, action.canvas];
+//         default:
+//             return state
+//     }
+// }
 

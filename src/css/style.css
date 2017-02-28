@@ -4,12 +4,12 @@
 	border-bottom-left-radius: 13px;
 }
 
-.imageLoader{
+.editor{
 	border: 2px solid;
 	border-bottom-right-radius: 13px;
 }
 
-.canvas, .imageLoader{
+.canvas, .editor{
 	min-height: 582px;
 	border-top: none;
 }
@@ -22,7 +22,7 @@
 	background: linear-gradient(to right, #337ab7, #507299);
 }
 
-.myFrame, .canvas, .imageLoader {
+.myFrame, .canvas, .editor {
 	border-color: #d3d9de;
 }
 

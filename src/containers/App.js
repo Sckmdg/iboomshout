@@ -1,19 +1,21 @@
 /*Compose our components*/
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Canvas from '../components/canvas';
 import Editor from '../components/editor';
-import * as pageActions from '../actions/actions';
+import actions from '../actions/actions';
 class App extends Component {
     render() {
+        console.log(this.props);
         const {canvas} = this.props;
+
         return (
             <div className='app col-md-12'>
                 <div className='myFrame'>
                     <h2 className='myName text-center'>Boom Shout</h2>
                 </div>
-                <Canvas canvas={canvas} />
+                <Canvas canvas={canvas} createCanvas={this.props.actions.createCanvas}/>
                 <Editor editor={canvas} />
             </div>
         )
@@ -28,8 +30,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        pageActions: bindActionCreators(pageActions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps())(App)
+App.propTypes = {
+    canvas: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

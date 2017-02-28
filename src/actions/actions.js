@@ -1,7 +1,7 @@
 import {
     TEXT_ADD,
     BOLD,
-    CANVAS
+    CREATE_CANVAS
 } from '../constants/constants';
 
 export function textAdd(text) {
@@ -22,11 +22,13 @@ export function bold(text) {
     }
 }
 
-export function canvas(canvas) {
+export function createCanvas(canvas) {
     return(dispatch) => {
         dispatch({
-            type: CANVAS,
+            type: CREATE_CANVAS,
             payload: canvas
         })
     }
 }
+
+export default { textAdd, bold, createCanvas }

@@ -1,3 +1,3 @@
 export const TEXT_ADD = 'TEXT_ADDD';
 export const BOLD = 'BOLD';
-export const CANVAS = 'CANVAS';
+export const CREATE_CANVAS = 'CREATE_CANVAS';

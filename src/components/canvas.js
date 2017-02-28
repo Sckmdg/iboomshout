@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {fabric} from 'fabric';
 import windowGlass from '../img/windowGlass.jpg';
-export default class Canvas extends Component {
+class Canvas extends Component {
 
     /*Here we creating our canvas and background*/
     componentDidMount() {
@@ -12,8 +12,11 @@ export default class Canvas extends Component {
             height: canvas.height
         });
 
+        this.props.createCanvas(canvas);
+
         /*This code let us downloading our images*/
         this.setState({canvas: canvas});
+
         let self = this;
         document.getElementById('file').addEventListener('change', function (e) {
             let file = e.target.files[0];
@@ -55,18 +58,17 @@ export default class Canvas extends Component {
     }
 
     render() {
-        const {left, top} = this.props.canvas;
         return (
             <div className='col-md-8 canvas text-center'>
                 <canvas id='canvas' width='720' height='450'></canvas>
-                <div>{left}</div>
-                <div>{top}</div>
             </div>
         );
     }
 }
 
 Canvas.propTypes = {
-    left: PropTypes.number.isRequired,
-    top: PropTypes.number.isRequired
-}
+    createCanvas: PropTypes.func.isRequired,
+    canvas: PropTypes.object.isRequired
+};
+
+export default Canvas

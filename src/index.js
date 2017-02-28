@@ -8,7 +8,7 @@ import './css/style.css';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-console.log('store state', store.getState());
+console.log('store state', store);
 render(
     <Provider store={store}>
         <App />

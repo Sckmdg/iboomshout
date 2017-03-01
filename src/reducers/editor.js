@@ -1,21 +1,22 @@
 import {
-    TEXT_ADD,
-    BOLD
+    //CREATE_TEXT,
+    BOLD_TEXT,
+    initialState
 } from '../constants/constants';
 
-export default function textAdd(state, action) {
-    switch (action.type) {
-        case TEXT_ADD:
-            return [...state, action.textAdd];
-        default:
-            return state
-    }
-}
+// export function createText(state = initialState, action) {
+//     switch (action.type) {
+//         case CREATE_TEXT:
+//             return Object.assign(state, action.payload) ;
+//         default:
+//             return state
+//     }
+// }
 
-export default function bold(state, action) {
+export function boldText(state = initialState, action) {
     switch (action.type) {
-        case BOLD:
-            return [...state, action.bold];
+        case BOLD_TEXT:
+            return [...state, action.payload];
         default:
             return state
     }

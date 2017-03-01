@@ -2,10 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import {fabric} from 'fabric';
 import windowGlass from '../img/windowGlass.jpg';
 class Canvas extends Component {
-    constructor(props){
-        super(props);
-
-    }
     /*Here we creating our canvas and background*/
     componentDidMount() {
         let canvas = new fabric.Canvas('canvas');
@@ -15,7 +11,7 @@ class Canvas extends Component {
             height: canvas.height
         });
         this.props.createCanvas(canvas);
-        console.log(this.props.canvas);
+
         /*This code let us downloading our images*/
 
         let self = this;

@@ -1,35 +1,18 @@
 import {
-    CREATE_CANVAS
+    CREATE_CANVAS,
+    CREATE_TEXT,
+    initialState
 } from '../constants/constants';
-
-const initialState = {
-    left: 305,
-    top: 140,
-    checkBold: false,
-    emptySize: true,
-    emptyUrl: true,
-    text: {
-        fontWeight: 'normal',
-        fontFamily: 'Helvetica Neue',
-        fontSize: 30
-    }
-};
 
 export function canvas(state = initialState, action) {
     switch (action.type) {
         case CREATE_CANVAS:
             return Object.assign(state, action.payload) ;
+        case CREATE_TEXT:
+            state._objects.push(action.payload);
+            state.emptySize = true;
+            return state;
         default:
             return state
     }
 }
-
-// export function createCanvas(state = initialState, action) {
-//     switch (action.type) {
-//         case CREATE_CANVAS:
-//             return [...state, action.canvas];
-//         default:
-//             return state
-//     }
-// }
-

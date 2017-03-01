@@ -3,11 +3,11 @@ import {fabric} from 'fabric';
 export default class Editor extends Component {
 
     TextAdd = () => {
-        let canvas = this.props.canvas,
+        let
             inputSize = this.refs.size.value,
-            fontWeight = this.props.editor.text.fontWeight,
-            left = this.props.left,
-            top = this.props.top,
+            fontWeight = this.props.canvas.text.fontWeight,
+            left = this.props.canvas.left,
+            top = this.props.canvas.top,
             weight,
             size,
             element,
@@ -15,9 +15,8 @@ export default class Editor extends Component {
 
         element = this.refs.fontFamily;
         currentFont = element.options[element.selectedIndex].text;
-        size = (inputSize == null || inputSize == '') ? this.props.editor.text.fontSize : this.refs.size.value;
-
-        (this.props.checkBold == true) ? weight = 'bold' : weight = fontWeight;
+        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.refs.size.value;
+        (this.props.canvas.checkBold == true) ? weight = 'bold' : weight = fontWeight;
 
         let text = new fabric.IText('Tap and Type', {
             left: left,
@@ -26,10 +25,12 @@ export default class Editor extends Component {
             fontSize: size,
             fontWeight: weight
         });
-        canvas.add(text);
+
+        this.props.createText(text);
+        //canvas.add(text);
 
         this.refs.size.value = '';
-        this.setState({emptySize: true});
+        //this.setState({emptySize: true});
 
         let self = this;
 

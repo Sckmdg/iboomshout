@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import {fabric} from 'fabric';
 export default class Editor extends Component {
+    /**
+     * TextAdd create variables, that goes to text settings (payload for action),
+     *  add text object to canvas and rendering him
+     *
+     * @constructor
+     * inputSize takes value from input
+     * fontWight/left/right - takes default value from store
+     * weight/size - we need this value for future, when we will check choose that made user
+     * element taking input where user choose font-family
+     * currentFont - take value from element and goes to text settings
+     */
     TextAdd = () => {
         let inputSize = this.refs.size.value,
             fontWeight = this.props.canvas.text.fontWeight,
@@ -10,11 +21,32 @@ export default class Editor extends Component {
             size,
             element,
             currentFont;
+
         element = this.refs.fontFamily;
         currentFont = element.options[element.selectedIndex].text;
-        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.refs.size.value;
-        (this.props.canvas.checkBold == true) ? weight = 'bold' : weight = fontWeight;
 
+        /**
+         * Checking our input
+         * if it's empty => default value goes to text settings
+         * else => value from inputSize goes to text settings
+         */
+        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.refs.size.value;
+
+        /**
+         * Checking checkbox
+         * if it's fill => our text will be bold
+         * else => taking default weight for text settings
+         */
+        if (this.props.canvas.checkBold == true) {
+            weight = 'bold';
+        }
+        else {
+            weight = fontWeight;
+        }
+
+        /**
+         * This is text settings, payload for action
+         */
         let text = new fabric.IText('Tap and Type', {
             left: left,
             top: top,
@@ -23,31 +55,117 @@ export default class Editor extends Component {
             fontWeight: weight
         });
 
+        /**
+         * Calling action that creates our text object to canvas and rendering him
+         */
         this.props.createText(text);
 
+        /**
+         * make empty fontSize Input for future text
+         * @type {string}
+         */
         this.refs.size.value = '';
 
+        /**
+         * Init state that we need below
+         * @type {Editor}
+         */
         let self = this;
 
+        /**
+         * When text object is selected => it fills fontSize input fields with text settings
+         */
         text.on('selected', function () {
             self.refs.size.value = text.fontSize;
         });
 
+        /**
+         * When text object is deselected => it makes fontSize input fields empty
+         */
         text.on('deselected', function () {
             self.refs.size.value = '';
         });
     };
 
-    /*Making true/false checkbox value, that used in TextAdd*/
-
-    Bold = () => {
-        this.props.boldText();
+    /**
+     * onChange function for selected object(for now only text)
+     * When fontSize input value has been changed and object is selected => it will change and render object fontSize
+     *
+     * @return void
+     */
+    ChangedFontSize = () => {
+        if (this.props.canvas.klass.getActiveObject()) {
+            this.props.canvas.klass.getActiveObject().setFontSize(this.refs.size.value);
+            this.props.canvas.klass.renderAll();
+        }
     };
 
-    /*Saving our image as png if browser can do it*/
+    /**
+     * onChange function for selected object(for now only text)
+     * When fontFamily input value has been changed and object is selected => it will change and render object fontFamily
+     *
+     * @return void
+     */
+    ChangedFontFamily = () => {
+        let selected = this.refs.fontFamily.options[this.refs.fontFamily.selectedIndex].text;
+        if (this.props.canvas.klass.getActiveObject()) {
+            this.props.canvas.klass.getActiveObject().setFontFamily(selected);
+            this.props.canvas.klass.renderAll();
+        }
+    };
 
+    /**
+     * Calling action and if text object is selected it will check checkbold for true/false
+     *  and render bold or normal text
+     * Also it affect to textAdd
+     */
+    Bold = () => {
+        this.props.boldText();
+
+        if (this.props.canvas.klass.getActiveObject()) {
+            console.log('выделен');
+
+            if (this.props.canvas.checkBold == true) {
+                this.props.canvas.klass.getActiveObject().set('fontWeight', 'bold')
+            }
+            else {
+                this.props.canvas.klass.getActiveObject().set('fontWeight', 'normal')
+            }
+
+        }
+
+        this.props.canvas.klass.renderAll();
+    };
+
+    /**
+     * It make available to load images (with position settings taken from store) from pc to canvas
+     */
+    LoadImage = () => {
+        
+        let self = this;
+        addEventListener('change', function (e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (f) {
+                let data = f.target.result;
+                fabric.Image.fromURL(data, function (img) {
+                    let oImg = img.set({
+                        left: self.props.canvas.left,
+                        top: self.props.canvas.top
+                    });
+                    self.props.canvas.klass.add(oImg);
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
+    /**
+     * Allows us to save canvas as image in png format if browser can do it
+     */
     Save = () => {
-        this.props.saveCanvas();
+        (fabric.Canvas.supports('toDataURL') == true) ?
+            window.open(this.props.canvas.klass.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     };
 
     render() {
@@ -57,11 +175,12 @@ export default class Editor extends Component {
                 <div className='form-group'>
                     <label>Font-Size</label>
                     <input type='number' className='form-control' id='fontSize'
-                           placeholder='input size number of Font-Size' ref='size' />
+                           placeholder='input size number of Font-Size' ref='size' onChange={this.ChangedFontSize}/>
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>
-                    <select className='form-control' id='fontFamily' ref='fontFamily'>
+                    <select className='form-control' id='fontFamily' ref='fontFamily'
+                            onChange={this.ChangedFontFamily}>
                         <option value='1'>Helvetica Neue</option>
                         <option value='2'>Helvetica</option>
                         <option value='3'>Arial</option>
@@ -70,14 +189,14 @@ export default class Editor extends Component {
                 </div>
                 <div className='checkbox'>
                     <label>
-                        <input type='checkbox' id='checkbox' ref='bold' onChange={this.Bold}/> Bold
+                        <input type='checkbox' id='checkbox' ref='bold' onClick={this.Bold}/> Bold
                     </label>
                 </div>
                 <button type='submit' className='btn btn-default' onClick={this.TextAdd}>Add text</button>
                 <h4 className='text-center'>Add your own image</h4>
                 <div className='form-group'>
                     <label className="control-label">Select File</label>
-                    <input id='file' type='file' className='file'/>
+                    <input id='file' type='file' className='file' onClick={this.LoadImage}/>
                 </div>
                 <div className='form-group'>
                     <h4 className='text-center'>Save canvas</h4>

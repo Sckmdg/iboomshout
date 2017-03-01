@@ -1,10 +1,15 @@
 import {
     CREATE_TEXT,
     BOLD_TEXT,
-    CREATE_CANVAS,
-    SAVE_CANVAS
+    CREATE_CANVAS
 } from '../constants/constants';
 
+/**
+ * Takes text settings (text) as payload
+ *
+ * @param text - is variables for fabricJs - that settings how our text will be looking
+ * @returns {function(*)} state(canvas) with object(text)
+ */
 export function createText(text) {
     return (dispatch) => {
         dispatch({
@@ -13,7 +18,9 @@ export function createText(text) {
         })
     }
 }
-
+/**
+ * @returns {function(*)} state(canvas) with property isBold (true/false) that making our text bold/normal
+ */
 export function boldText() {
     return (dispatch) => {
         dispatch({
@@ -21,15 +28,14 @@ export function boldText() {
         })
     }
 }
-
-export function saveCanvas() {
-    return (dispatch) => {
-        dispatch({
-            type: SAVE_CANVAS
-        })
-    }
-}
-
+/**
+ * This action called when our canvas-component did mount
+ *
+ * @param canvas it's fabricJs object with his params that render our canvas. We will need some functions(canvas.Add and etc)
+ *  and _objects(that  contained our pics and text)
+ *
+ * @returns {function(*)} state with filled klass
+ */
 export function createCanvas(canvas) {
     return(dispatch) => {
         dispatch({
@@ -40,4 +46,4 @@ export function createCanvas(canvas) {
 
 }
 
-export default {createText, boldText, createCanvas, saveCanvas}
+export default {createText, boldText, createCanvas}

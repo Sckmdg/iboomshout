@@ -1,4 +1,6 @@
-/*Compose our components*/
+/**
+ * Composing components
+ */
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -6,7 +8,10 @@ import Canvas from '../components/canvas';
 import Editor from '../components/editor';
 import actions from '../actions/actions';
 class App extends Component {
-
+    /**
+     * In Canvas and Editor we sent actions and store info
+     * @returns {XML}
+     */
     render() {
         const {canvas} = this.props;
         return (

@@ -2,9 +2,32 @@ import React, {Component} from 'react';
 import {fabric} from 'fabric';
 export default class Editor extends Component {
 
+
+    // document.getElementById('fontFamily').onchange = function () {
+    //     if (canvas.getActiveObject()) {
+    //         canvas.getActiveObject().setFontFamily(this.options[this.selectedIndex].text);
+    //     }
+    //     canvas.renderAll();
+    // };
+    //
+    // document.getElementById('checkbox').onchange = function () {
+    //     if (canvas.getActiveObject()) {
+    //         (self.state.checkBold == true)
+    //             ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
+    //     }
+    //     canvas.renderAll();
+    // };
+
+    // onChangeSize = () => {
+    //     let canvas = this.props.canvas;
+    //         if (canvas.getActiveObject()) {
+    //             canvas.getActiveObject().setFontSize(this.refs.size.value);
+    //         }
+    //         canvas.renderAll();
+    // };
+
     TextAdd = () => {
-        let
-            inputSize = this.refs.size.value,
+        let inputSize = this.refs.size.value,
             fontWeight = this.props.canvas.text.fontWeight,
             left = this.props.canvas.left,
             top = this.props.canvas.top,
@@ -27,10 +50,8 @@ export default class Editor extends Component {
         });
 
         this.props.createText(text);
-        //canvas.add(text);
 
         this.refs.size.value = '';
-        //this.setState({emptySize: true});
 
         let self = this;
 
@@ -46,13 +67,13 @@ export default class Editor extends Component {
     /*Making true/false checkbox value, that used in TextAdd*/
 
     Bold = () => {
-        this.setState({checkBold: !this.props.checkBold});
+        this.props.boldText();
     };
 
     /*Saving our image as png if browser can do it*/
 
     Save = () => {
-        const canvas = this.props.canvas;
+        let canvas = this.props.canvas;
         (fabric.Canvas.supports('toDataURL') == true) ?
             window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     };
@@ -64,7 +85,7 @@ export default class Editor extends Component {
                 <div className='form-group'>
                     <label>Font-Size</label>
                     <input type='number' className='form-control' id='fontSize'
-                           placeholder='input size number of Font-Size' ref='size'/>
+                           placeholder='input size number of Font-Size' ref='size' />
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>

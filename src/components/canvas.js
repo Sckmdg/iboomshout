@@ -22,8 +22,8 @@ class Canvas extends Component {
                 let data = f.target.result;
                 fabric.Image.fromURL(data, function (img) {
                     let oImg = img.set({
-                        left: self.state.left,
-                        top: self.state.top
+                        left: self.props.canvas.left,
+                        top: self.props.canvas.top,
                     });
                     canvas.add(oImg);
                 });
@@ -47,7 +47,7 @@ class Canvas extends Component {
 
         document.getElementById('checkbox').onchange = function () {
             if (canvas.getActiveObject()) {
-                (self.state.checkBold == true)
+                (self.props.canvas.checkBold == true)
                     ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
             }
             canvas.renderAll();

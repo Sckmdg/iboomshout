@@ -13,11 +13,10 @@ export function createText(text) {
     }
 }
 
-export function boldText(text) {
+export function boldText() {
     return (dispatch) => {
         dispatch({
-            type: BOLD_TEXT,
-            payload: text
+            type: BOLD_TEXT
         })
     }
 }

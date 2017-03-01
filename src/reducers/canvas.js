@@ -12,9 +12,8 @@ export function canvas(state = initialState, action) {
         case CREATE_CANVAS:
             state.klass = action.payload;
             return state;
-            //return Object.assign(state, action.payload) ;
         case CREATE_TEXT:
-            state.klass._objects.push(action.payload);
+            state.klass.add(action.payload);
             state.emptySize = true;
             state.klass.renderAll();
             return state;

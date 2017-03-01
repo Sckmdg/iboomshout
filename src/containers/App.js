@@ -14,8 +14,16 @@ class App extends Component {
                 <div className='myFrame'>
                     <h2 className='myName text-center'>Boom Shout</h2>
                 </div>
-                <Canvas canvas={canvas} createCanvas={this.props.actions.createCanvas}/>
-                <Editor canvas={canvas} createText={this.props.actions.createText} boldText={this.props.actions.boldText}/>
+                <Canvas
+                    canvas={canvas}
+                    createCanvas={this.props.actions.createCanvas}
+                />
+                <Editor
+                    canvas={canvas}
+                    createText={this.props.actions.createText}
+                    boldText={this.props.actions.boldText}
+                    saveCanvas={this.props.actions.saveCanvas}
+                />
             </div>
         )
     }

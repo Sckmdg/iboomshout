@@ -1,31 +1,6 @@
 import React, {Component} from 'react';
 import {fabric} from 'fabric';
 export default class Editor extends Component {
-
-
-    // document.getElementById('fontFamily').onchange = function () {
-    //     if (canvas.getActiveObject()) {
-    //         canvas.getActiveObject().setFontFamily(this.options[this.selectedIndex].text);
-    //     }
-    //     canvas.renderAll();
-    // };
-    //
-    // document.getElementById('checkbox').onchange = function () {
-    //     if (canvas.getActiveObject()) {
-    //         (self.state.checkBold == true)
-    //             ? canvas.getActiveObject().set('fontWeight', 'bold') : canvas.getActiveObject().set('fontWeight', 'normal');
-    //     }
-    //     canvas.renderAll();
-    // };
-
-    // onChangeSize = () => {
-    //     let canvas = this.props.canvas;
-    //         if (canvas.getActiveObject()) {
-    //             canvas.getActiveObject().setFontSize(this.refs.size.value);
-    //         }
-    //         canvas.renderAll();
-    // };
-
     TextAdd = () => {
         let inputSize = this.refs.size.value,
             fontWeight = this.props.canvas.text.fontWeight,
@@ -35,7 +10,6 @@ export default class Editor extends Component {
             size,
             element,
             currentFont;
-
         element = this.refs.fontFamily;
         currentFont = element.options[element.selectedIndex].text;
         size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.refs.size.value;
@@ -73,9 +47,10 @@ export default class Editor extends Component {
     /*Saving our image as png if browser can do it*/
 
     Save = () => {
-        let canvas = this.props.canvas;
+        //this.props.saveCanvas();
+        let canvas = this.props.canvas.klass;
         (fabric.Canvas.supports('toDataURL') == true) ?
-            window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
+        window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     };
 
     render() {
@@ -101,8 +76,7 @@ export default class Editor extends Component {
                         <input type='checkbox' id='checkbox' ref='bold' onChange={this.Bold}/> Bold
                     </label>
                 </div>
-                <button type='submit' className='btn btn-default' onClick={this.TextAdd}>Add text
-                </button>
+                <button type='submit' className='btn btn-default' onClick={this.TextAdd}>Add text</button>
                 <h4 className='text-center'>Add your own image</h4>
                 <div className='form-group'>
                     <label className="control-label">Select File</label>

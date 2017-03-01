@@ -1,7 +1,8 @@
 import {
     CREATE_TEXT,
     BOLD_TEXT,
-    CREATE_CANVAS
+    CREATE_CANVAS,
+    SAVE_CANVAS
 } from '../constants/constants';
 
 export function createText(text) {
@@ -21,6 +22,14 @@ export function boldText() {
     }
 }
 
+export function saveCanvas() {
+    return (dispatch) => {
+        dispatch({
+            type: SAVE_CANVAS
+        })
+    }
+}
+
 export function createCanvas(canvas) {
     return(dispatch) => {
         dispatch({
@@ -31,4 +40,4 @@ export function createCanvas(canvas) {
 
 }
 
-export default {createText, boldText, createCanvas}
+export default {createText, boldText, createCanvas, saveCanvas}

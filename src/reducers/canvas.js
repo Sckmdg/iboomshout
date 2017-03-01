@@ -22,7 +22,7 @@ export function canvas(state = initialState, action) {
             return state;
         case SAVE_CANVAS:
             (fabric.Canvas.supports('toDataURL') == true) ?
-            window.open(state.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
+            window.open(state.klass.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
             return state;
         default:
             return state

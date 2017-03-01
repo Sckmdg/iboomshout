@@ -47,10 +47,7 @@ export default class Editor extends Component {
     /*Saving our image as png if browser can do it*/
 
     Save = () => {
-        //this.props.saveCanvas();
-        let canvas = this.props.canvas.klass;
-        (fabric.Canvas.supports('toDataURL') == true) ?
-        window.open(canvas.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
+        this.props.saveCanvas();
     };
 
     render() {

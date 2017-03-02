@@ -123,8 +123,7 @@ export default class Editor extends Component {
         this.props.boldText();
 
         if (this.props.canvas.klass.getActiveObject()) {
-            console.log('выделен');
-
+            
             if (this.props.canvas.checkBold == true) {
                 this.props.canvas.klass.getActiveObject().set('fontWeight', 'bold')
             }

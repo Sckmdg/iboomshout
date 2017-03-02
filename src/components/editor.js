@@ -67,23 +67,17 @@ export default class Editor extends Component {
         this.refs.size.value = '';
 
         /**
-         * Init state that we need below
-         * @type {Editor}
-         */
-        let self = this;
-
-        /**
          * When text object is selected => it fills fontSize input fields with text settings
          */
-        text.on('selected', function () {
-            self.refs.size.value = text.fontSize;
-        });
 
+        text.on('selected', () => {
+            this.refs.size.value = text.fontSize;
+        });
         /**
          * When text object is deselected => it makes fontSize input fields empty
          */
-        text.on('deselected', function () {
-            self.refs.size.value = '';
+        text.on('deselected', () => {
+            this.refs.size.value = '';
         });
     };
 
@@ -141,18 +135,17 @@ export default class Editor extends Component {
      * It's OnChange function - check loaded value, and then renders him with position settings from store
      */
     LoadImage = (e) => {
-        let self = this;
         let reader = new FileReader();
-        reader.onload = function (event) {
+        reader.onload = (event) => {
             let imgObj = new Image();
             imgObj.src = event.target.result;
-            imgObj.onload = function () {
+            imgObj.onload = () => {
                 let image = new fabric.Image(imgObj);
                 image.set({
-                    left: self.props.canvas.left,
-                    top: self.props.canvas.top
+                    left: this.props.canvas.left,
+                    top: this.props.canvas.top
                 });
-                self.props.canvas.klass.add(image);
+                this.props.canvas.klass.add(image);
             }
         };
         reader.readAsDataURL(e.target.files[0]);

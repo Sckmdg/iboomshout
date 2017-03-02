@@ -9,7 +9,7 @@ import Editor from '../components/editor';
 import actions from '../actions/actions';
 class App extends Component {
     /**
-     * In Canvas and Editor we sent actions and store info
+     * In Canvas and Editor we sent actions and store data
      * @returns {XML}
      */
     render() {

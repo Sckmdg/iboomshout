@@ -138,26 +138,25 @@ export default class Editor extends Component {
     };
 
     /**
-     * It make available to load images (with position settings taken from store) from pc to canvas
+     * Loading images from pc to canvas
+     * It's OnChange function - check loaded value, and then renders him with position settings from store
      */
-    LoadImage = () => {
-        
+    LoadImage = (e) => {
         let self = this;
-        addEventListener('change', function (e) {
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            reader.onload = function (f) {
-                let data = f.target.result;
-                fabric.Image.fromURL(data, function (img) {
-                    let oImg = img.set({
-                        left: self.props.canvas.left,
-                        top: self.props.canvas.top
-                    });
-                    self.props.canvas.klass.add(oImg);
+        let reader = new FileReader();
+        reader.onload = function (event) {
+            let imgObj = new Image();
+            imgObj.src = event.target.result;
+            imgObj.onload = function () {
+                let image = new fabric.Image(imgObj);
+                image.set({
+                    left: self.props.canvas.left,
+                    top: self.props.canvas.top
                 });
-            };
-            reader.readAsDataURL(file);
-        });
+                self.props.canvas.klass.add(image);
+            }
+        };
+        reader.readAsDataURL(e.target.files[0]);
     };
 
     /**
@@ -196,7 +195,7 @@ export default class Editor extends Component {
                 <h4 className='text-center'>Add your own image</h4>
                 <div className='form-group'>
                     <label className="control-label">Select File</label>
-                    <input id='file' type='file' className='file' onClick={this.LoadImage}/>
+                    <input id='file' type='file' className='file' onChange={this.LoadImage}/>
                 </div>
                 <div className='form-group'>
                     <h4 className='text-center'>Save canvas</h4>

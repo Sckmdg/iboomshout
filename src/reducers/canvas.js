@@ -12,7 +12,7 @@ import {
 //             return state;
 //         case CREATE_TEXT:
 //             state.klass.add(action.payload);
-//             Object.assign(state, {emptySize: true});
+//             Object.assign({emptySize: true});
 //             state.klass.renderAll();
 //             return state;
 //         case BOLD_TEXT:
@@ -26,12 +26,12 @@ import {
 export function canvas(state = initialState, action) {
     switch (action.type) {
         case CREATE_CANVAS:
-            return Object.assign({}, state, {klass: action.payload});
+            return {...state, klass: action.payload};
         case CREATE_TEXT:
             state.klass.add(action.payload);
-            return Object.assign({}, state, {emptySize: true}, state.klass.renderAll());
+            return {...state, emptySize: true};
         case BOLD_TEXT:
-            return Object.assign({}, state, {checkBold: !state.checkBold});
+            return {...state, checkBold: !state.checkBold};
         default:
             return state
     }

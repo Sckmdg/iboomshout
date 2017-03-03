@@ -2,6 +2,25 @@ import React, {Component} from 'react';
 import {fabric} from 'fabric';
 export default class Editor extends Component {
     /**
+     * Here we checking if we change checkBold => selected text object will change his fontWeight
+     * @param nextProps
+     */
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.canvas.klass.getActiveObject()) {
+
+            if (nextProps.canvas.checkBold == true) {
+                nextProps.canvas.klass.getActiveObject().set('fontWeight', 'bold')
+            }
+            else {
+                nextProps.canvas.klass.getActiveObject().set('fontWeight', 'normal')
+            }
+
+        }
+
+        nextProps.canvas.klass.renderAll();
+    }
+
+    /**
      * TextAdd create variables, that goes to text settings (payload for action),
      *  add text object to canvas and rendering him
      *
@@ -115,19 +134,6 @@ export default class Editor extends Component {
      */
     Bold = () => {
         this.props.boldText();
-        if (this.props.canvas.klass.getActiveObject()) {
-
-            if (this.props.canvas.checkBold == true) {
-                console.log('if true', this.props.canvas.checkBold);
-                this.props.canvas.klass.getActiveObject().set('fontWeight', 'bold')
-            }
-            else {
-                console.log('if false', this.props.canvas.checkBold);
-                this.props.canvas.klass.getActiveObject().set('fontWeight', 'normal')
-            }
-
-        }
-        this.props.canvas.klass.renderAll();
     };
 
     /**

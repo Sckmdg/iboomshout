@@ -28,7 +28,9 @@ class App extends Component {
                     canvas={canvas}
                     createText={this.props.actions.createText}
                     boldText={this.props.actions.boldText}
-
+                    createValue={this.props.actions.createValue}
+                    emptyValue={this.props.actions.emptyValue}
+                    setInput={this.props.actions.setInput}
                 />
                 <ImageForm
                     canvas={canvas}

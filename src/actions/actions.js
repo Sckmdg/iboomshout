@@ -1,7 +1,10 @@
 import {
     CREATE_TEXT,
     BOLD_TEXT,
-    CREATE_CANVAS
+    CREATE_CANVAS,
+    CREATE_VALUE,
+    EMPTY_VALUE,
+    SET_INPUT
 } from '../constants/constants';
 
 /**
@@ -43,7 +46,32 @@ export function createCanvas(canvas) {
             payload: canvas
         })
     }
-
 }
 
-export default {createText, boldText, createCanvas}
+export function createValue(value) {
+    return(dispatch) => {
+        dispatch({
+            type: CREATE_VALUE,
+            payload: value
+        })
+    }
+}
+
+export function emptyValue() {
+    return(dispatch) => {
+        dispatch({
+            type: EMPTY_VALUE
+        })
+    }
+}
+
+export function setInput(value) {
+    return(dispatch) => {
+        dispatch({
+            type: SET_INPUT,
+            payload: value
+        })
+    }
+}
+
+export default {createText, boldText, createCanvas, createValue, emptyValue, setInput}

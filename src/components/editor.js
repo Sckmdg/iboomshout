@@ -32,7 +32,7 @@ export default class Editor extends Component {
      * currentFont - take value from element and goes to text settings
      */
     TextAdd = () => {
-        let inputSize = this.refs.size.value,
+        let inputSize = this.props.value,
             fontWeight = this.props.canvas.text.fontWeight,
             left = this.props.canvas.left,
             top = this.props.canvas.top,
@@ -44,12 +44,14 @@ export default class Editor extends Component {
         element = this.refs.fontFamily;
         currentFont = element.options[element.selectedIndex].text;
 
+
+
         /**
          * Checking our input
          * if it's empty => default value goes to text settings
          * else => value from inputSize goes to text settings
          */
-        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.refs.size.value;
+        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.props.value;
 
         /**
          * Checking checkbox
@@ -81,22 +83,21 @@ export default class Editor extends Component {
 
         /**
          * make empty fontSize Input for future text
-         * @type {string}
          */
-        this.refs.size.value = '';
+        this.props.emptyValue();
 
         /**
          * When text object is selected => it fills fontSize input fields with text settings
          */
 
         text.on('selected', () => {
-            this.refs.size.value = text.fontSize;
+            this.props.setInput(text.fontSize);
         });
         /**
          * When text object is deselected => it makes fontSize input fields empty
          */
         text.on('deselected', () => {
-            this.refs.size.value = '';
+            this.props.emptyValue();
         });
     };
 
@@ -106,9 +107,10 @@ export default class Editor extends Component {
      *
      * @return void
      */
-    ChangedFontSize = () => {
+    ChangedFontSize = (event) => {
+        this.props.createValue(Number(event.target.value));
         if (this.props.canvas.klass.getActiveObject()) {
-            this.props.canvas.klass.getActiveObject().setFontSize(this.refs.size.value);
+            this.props.canvas.klass.getActiveObject().setFontSize(this.props.value);
             this.props.canvas.klass.renderAll();
         }
     };
@@ -143,7 +145,7 @@ export default class Editor extends Component {
                 <div className='form-group'>
                     <label>Font-Size</label>
                     <input type='number' className='form-control' id='fontSize'
-                           placeholder='input size number of Font-Size' ref='size' onChange={this.ChangedFontSize}/>
+                           placeholder='input size number of Font-Size' value={this.props.value} onChange={this.ChangedFontSize}/>
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>

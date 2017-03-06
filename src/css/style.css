@@ -1,32 +1,35 @@
-.canvas{
-	border: 2px solid;
-	border-right: none;
-	border-bottom-left-radius: 13px;
+#root {
+    border: 2px solid;
+    border-radius: 13px;
+    border-color: #d3d9de;
+    margin-top: 25px;
+
 }
 
-.editor{
-	border: 2px solid;
-	border-bottom-right-radius: 13px;
+.canvas {
+    padding-left: 0;
+    border-top: 1px solid;
 }
 
-.canvas, .editor{
-	min-height: 582px;
-	border-top: none;
+.editor {
+    border-top: 1px solid;
 }
 
-.myFrame{
-	margin-top: 25px;
-	border-top-right-radius: 13px;
-	border-top-left-radius: 13px;
-	border: 2px solid;
-	background: linear-gradient(to right, #337ab7, #507299);
+.myFrame h2 {
+    color: #337ab7;
+    margin-bottom: 20px;
 }
 
-.myFrame, .canvas, .editor {
-	border-color: #d3d9de;
+.editor, .imageForm {
+    border-right: 1px solid;
+}
+.myFrame, .canvas, .editor, .imageForm {
+    border-color: #d3d9de;
 }
 
-.myName{
-	margin-top: 10px;
-	color: #fff;
+#canvas {
+    border: 1px solid;
+    border-color: #d3d9de;
+    border-bottom: none;
+    border-top: none;
 }

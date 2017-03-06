@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Canvas from '../components/canvas';
 import Editor from '../components/editor';
+import ImageForm from '../components/imageForm';
 import actions from '../actions/actions';
 class App extends Component {
     /**
@@ -15,9 +16,9 @@ class App extends Component {
     render() {
         const {canvas} = this.props;
         return (
-            <div className='app col-md-12'>
+            <div className='app'>
                 <div className='myFrame'>
-                    <h2 className='myName text-center'>Boom Shout</h2>
+                    <h2 className='text-center'>Boom Shout</h2>
                 </div>
                 <Canvas
                     canvas={canvas}
@@ -27,6 +28,10 @@ class App extends Component {
                     canvas={canvas}
                     createText={this.props.actions.createText}
                     boldText={this.props.actions.boldText}
+
+                />
+                <ImageForm
+                    canvas={canvas}
                     saveCanvas={this.props.actions.saveCanvas}
                 />
             </div>

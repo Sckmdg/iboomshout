@@ -3,7 +3,6 @@ export const BOLD_TEXT = 'BOLD_TEXT';
 export const CREATE_CANVAS = 'CREATE_CANVAS';
 export const CREATE_SIZE_VALUE = 'CREATE_SIZE_VALUE';
 export const EMPTY_SIZE_VALUE = 'EMPTY_SIZE_VALUE';
-export const SIZE_INPUT = 'SIZE_INPUT';
 export const CREATE_FONT = 'CREATE_FONT';
 /**
  * Initial state for store
@@ -21,6 +20,6 @@ export const initialState = {
         fontSize: 30
     },
     klass:{},
-    sizeValue: 0,
-    fontValue: 'Helvetica Neue'
+    sizeValue: '',
+    fontValue: ''
 };

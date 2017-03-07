@@ -4,7 +4,6 @@ import {
     BOLD_TEXT,
     CREATE_SIZE_VALUE,
     EMPTY_SIZE_VALUE,
-    SIZE_INPUT,
     CREATE_FONT,
     initialState
 } from '../constants/constants';
@@ -21,11 +20,8 @@ export function canvas(state = initialState, action) {
         case CREATE_SIZE_VALUE:
             return {...state, sizeValue: action.payload};
         case EMPTY_SIZE_VALUE:
-            return {...state, sizeValue: 0};
-        case SIZE_INPUT:
-            return {...state, sizeValue: action.payload};
+            return {...state, sizeValue: ''};
         case CREATE_FONT:
-            console.log(action.payload);
             return{...state, fontValue: action.payload};
         default:
             return state

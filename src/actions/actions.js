@@ -4,7 +4,6 @@ import {
     CREATE_CANVAS,
     CREATE_SIZE_VALUE,
     EMPTY_SIZE_VALUE,
-    SIZE_INPUT,
     CREATE_FONT
 } from '../constants/constants';
 
@@ -66,15 +65,6 @@ export function emptySizeValue() {
     }
 }
 
-export function sizeInput(value) {
-    return(dispatch) => {
-        dispatch({
-            type: SIZE_INPUT,
-            payload: value
-        })
-    }
-}
-
 export function createFont(font) {
     return(dispatch) => {
         dispatch({
@@ -84,4 +74,4 @@ export function createFont(font) {
     }
 }
 
-export default {createText, boldText, createCanvas, createSizeValue, emptySizeValue, sizeInput, createFont}
+export default {createText, boldText, createCanvas, createSizeValue, emptySizeValue, createFont}

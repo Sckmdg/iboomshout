@@ -28,11 +28,11 @@ export default class Editor extends Component {
      * inputSize takes value from input
      * fontWight/left/right - takes default value from store
      * weight/size - we need this value for future, when we will check choose that made user
-     * element taking input where user choose font-family
      * currentFont - take value from element and goes to text settings
      */
     TextAdd = () => {
         let inputSize = this.props.canvas.sizeValue,
+            inputFont = this.props.canvas.fontValue,
             fontWeight = this.props.canvas.text.fontWeight,
             left = this.props.canvas.left,
             top = this.props.canvas.top,
@@ -40,7 +40,7 @@ export default class Editor extends Component {
             size,
             currentFont;
 
-        currentFont = this.props.canvas.fontValue;
+        currentFont = (inputFont == null || inputFont == '') ? this.props.canvas.text.fontFamily : inputFont;
 
         /**
          * Checking our input
@@ -87,7 +87,7 @@ export default class Editor extends Component {
          */
 
         text.on('selected', () => {
-            this.props.sizeInput(text.fontSize);
+            this.props.createSizeValue(text.fontSize);
         });
         /**
          * When text object is deselected => it makes fontSize input fields empty
@@ -106,7 +106,7 @@ export default class Editor extends Component {
     ChangedFontSize = (event) => {
         this.props.createSizeValue(event.target.value);
         if (this.props.canvas.klass.getActiveObject()) {
-            this.props.canvas.klass.getActiveObject().setFontSize(this.props.canvas.sizeValue);
+            this.props.canvas.klass.getActiveObject().setFontSize(event.target.value);
             this.props.canvas.klass.renderAll();
         }
     };
@@ -146,9 +146,9 @@ export default class Editor extends Component {
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>
-                    <select className='form-control' id='fontFamily' value={this.props.canvas.fontValue}
+                    <select className='form-control' id='fontFamily'
                             onChange={this.ChangedFontFamily}>
-                        <option value='1'>Helvetica Neue</option>
+                        <option value='1' >Helvetica Neue</option>
                         <option value='2'>Helvetica</option>
                         <option value='3'>Arial</option>
                         <option value='4'>sans-serif</option>

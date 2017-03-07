@@ -30,7 +30,6 @@ class App extends Component {
                     boldText={this.props.actions.boldText}
                     createSizeValue={this.props.actions.createSizeValue}
                     emptySizeValue={this.props.actions.emptySizeValue}
-                    sizeInput={this.props.actions.sizeInput}
                     createFont={this.props.actions.createFont}
                 />
                 <ImageForm

@@ -32,26 +32,22 @@ export default class Editor extends Component {
      * currentFont - take value from element and goes to text settings
      */
     TextAdd = () => {
-        let inputSize = this.props.value,
+        let inputSize = this.props.canvas.sizeValue,
             fontWeight = this.props.canvas.text.fontWeight,
             left = this.props.canvas.left,
             top = this.props.canvas.top,
             weight,
             size,
-            element,
             currentFont;
 
-        element = this.refs.fontFamily;
-        currentFont = element.options[element.selectedIndex].text;
-
-
+        currentFont = this.props.canvas.fontValue;
 
         /**
          * Checking our input
          * if it's empty => default value goes to text settings
          * else => value from inputSize goes to text settings
          */
-        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.props.value;
+        size = (inputSize == null || inputSize == '') ? this.props.canvas.text.fontSize : this.props.canvas.sizeValue;
 
         /**
          * Checking checkbox
@@ -84,20 +80,20 @@ export default class Editor extends Component {
         /**
          * make empty fontSize Input for future text
          */
-        this.props.emptyValue();
+        this.props.emptySizeValue();
 
         /**
          * When text object is selected => it fills fontSize input fields with text settings
          */
 
         text.on('selected', () => {
-            this.props.setInput(text.fontSize);
+            this.props.sizeInput(text.fontSize);
         });
         /**
          * When text object is deselected => it makes fontSize input fields empty
          */
         text.on('deselected', () => {
-            this.props.emptyValue();
+            this.props.emptySizeValue();
         });
     };
 
@@ -108,9 +104,9 @@ export default class Editor extends Component {
      * @return void
      */
     ChangedFontSize = (event) => {
-        this.props.createValue(Number(event.target.value));
+        this.props.createSizeValue(event.target.value);
         if (this.props.canvas.klass.getActiveObject()) {
-            this.props.canvas.klass.getActiveObject().setFontSize(this.props.value);
+            this.props.canvas.klass.getActiveObject().setFontSize(this.props.canvas.sizeValue);
             this.props.canvas.klass.renderAll();
         }
     };
@@ -121,8 +117,9 @@ export default class Editor extends Component {
      *
      * @return void
      */
-    ChangedFontFamily = () => {
-        let selected = this.refs.fontFamily.options[this.refs.fontFamily.selectedIndex].text;
+    ChangedFontFamily = (event) => {
+        let selected = event.target.options[event.target.selectedIndex].text;
+        this.props.createFont(selected);
         if (this.props.canvas.klass.getActiveObject()) {
             this.props.canvas.klass.getActiveObject().setFontFamily(selected);
             this.props.canvas.klass.renderAll();
@@ -145,11 +142,11 @@ export default class Editor extends Component {
                 <div className='form-group'>
                     <label>Font-Size</label>
                     <input type='number' className='form-control' id='fontSize'
-                           placeholder='input size number of Font-Size' value={this.props.value} onChange={this.ChangedFontSize}/>
+                           placeholder='input size number of Font-Size' value={this.props.canvas.sizeValue} onChange={this.ChangedFontSize}/>
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>
-                    <select className='form-control' id='fontFamily' ref='fontFamily'
+                    <select className='form-control' id='fontFamily' value={this.props.canvas.fontValue}
                             onChange={this.ChangedFontFamily}>
                         <option value='1'>Helvetica Neue</option>
                         <option value='2'>Helvetica</option>
@@ -159,7 +156,7 @@ export default class Editor extends Component {
                 </div>
                 <div className='checkbox'>
                     <label>
-                        <input type='checkbox' id='checkbox' ref='bold' onClick={this.Bold}/> Bold
+                        <input type='checkbox' id='checkbox' value={this.props.canvas.checkBold} onClick={this.Bold}/> Bold
                     </label>
                 </div>
                 <button type='submit' className='btn btn-default' onClick={this.TextAdd}>Add text</button>

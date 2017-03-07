@@ -27,7 +27,6 @@ export default  class ImageForm extends Component {
      * Allows us to save canvas as image in png format if browser can do it
      */
     Save = () => {
-        console.log(this.props);
         (fabric.Canvas.supports('toDataURL') == true) ?
             window.open(this.props.canvas.klass.toDataURL('png')) : alert('This browser doesn\'t provide means to serialize canvas to an image');
     };
@@ -38,7 +37,7 @@ export default  class ImageForm extends Component {
                 <h4 className='text-center'>Add your own image</h4>
                 <div className='form-group'>
                     <label className="control-label">Select File</label>
-                    <input id='file' type='file' className='file' onChange={this.LoadImage}/>
+                    <input type='file' className='file' onChange={this.LoadImage}/>
                 </div>
                 <div className='form-group'>
                     <h4 className='text-center'>Save canvas</h4>

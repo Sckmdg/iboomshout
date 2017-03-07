@@ -141,12 +141,12 @@ export default class Editor extends Component {
                 <h4 className='text-center'>Add some text</h4>
                 <div className='form-group'>
                     <label>Font-Size</label>
-                    <input type='number' className='form-control' id='fontSize'
+                    <input type='number' className='form-control'
                            placeholder='input size number of Font-Size' value={this.props.canvas.sizeValue} onChange={this.ChangedFontSize}/>
                 </div>
                 <div className='form-group'>
                     <label>Font-Family</label>
-                    <select className='form-control' id='fontFamily'
+                    <select className='form-control'
                             onChange={this.ChangedFontFamily}>
                         <option value='1' >Helvetica Neue</option>
                         <option value='2'>Helvetica</option>
@@ -156,7 +156,7 @@ export default class Editor extends Component {
                 </div>
                 <div className='checkbox'>
                     <label>
-                        <input type='checkbox' id='checkbox' value={this.props.canvas.checkBold} onClick={this.Bold}/> Bold
+                        <input type='checkbox' onClick={this.Bold}/> Bold
                     </label>
                 </div>
                 <button type='submit' className='btn btn-default' onClick={this.TextAdd}>Add text</button>

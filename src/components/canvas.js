@@ -8,6 +8,7 @@ class Canvas extends Component {
      * width and height taken from element canvas.
      */
     componentDidMount() {
+        console.log('1 commit in master');
         let canvas = new fabric.Canvas('canvas');
 
         canvas.setBackgroundImage(windowGlass, canvas.renderAll.bind(canvas), {

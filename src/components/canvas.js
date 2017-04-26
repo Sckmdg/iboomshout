@@ -9,6 +9,8 @@ class Canvas extends Component {
      */
     componentDidMount() {
         console.log('1 commit in master');
+        console.log('2 commit in redux');
+
         let canvas = new fabric.Canvas('canvas');
 
         canvas.setBackgroundImage(windowGlass, canvas.renderAll.bind(canvas), {
